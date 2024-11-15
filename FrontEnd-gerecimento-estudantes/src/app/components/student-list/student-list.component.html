@@ -1,0 +1,44 @@
+<div class="container-fluid bg-dark text-center text-white">
+
+  <h2 class="title">LISTA DE ESTUDANTES</h2>
+  <div class="container">
+    <button class="btn btn-primary m-3" routerLink="/students/add">Adicionar estudante</button>
+
+    <div *ngIf="isLoading" class="preLoader" role="status">
+      <div class="loader"></div>
+      <span class="visually">Carregando...</span>
+    </div>
+
+    <div *ngIf="isError" class="alert alert-danger" role="alert">
+      Erro ao carregar a lista de estudantes. Por favor, tente novamente mais tarde.
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success" role="alert">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="!isLoading && !isError">
+      <table class="table table-bordered table-striped mt-2">
+        <thead>
+          <tr>
+            <th>NOME</th>
+            <th>IDADE</th>
+            <th>CURSO</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students">
+            <td>{{ student.nome }}</td>
+            <td>{{ student.idade }}</td>
+            <td>{{ student.curso }}</td>
+            <td>
+              <button class="btn btn-secondary" routerLink="/students/edit/{{ student._id }}">Editar</button>
+              <button class="btn btn-danger m-2" (click)="deleteStudent(student._id)">Deletar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
